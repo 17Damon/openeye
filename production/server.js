@@ -73,7 +73,7 @@ var corsOptions = {
 //     });
 // });
 
-//vedioList?offset=1&count=2&token="648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa"
+//vedioList?offset=0&count=2&token="648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa"
 app.get('/vedioList', function (req, res, next) {
     console.log(req.query.offset);
     console.log(req.query.count);
