@@ -29,48 +29,14 @@ var Message = exports.Message = function Message(type, code, content) {
     this.content = content;
 };
 
-//每期开奖结果和盈亏列表
+//VedioList
 
 
-var LotteryRecordList = exports.LotteryRecordList = function LotteryRecordList(totalCount, gainNumSum, lotteryRecordList, pageInfo) {
-    _classCallCheck(this, LotteryRecordList);
-
-    this.totalCount = totalCount;
-    this.gainNumSum = gainNumSum;
-    this.lotteryRecordList = lotteryRecordList;
-    this.pageInfo = pageInfo;
-};
-
-//个人下注结果和盈亏列表
-
-
-var BettingRecordList = exports.BettingRecordList = function BettingRecordList(totalCount, bettingRecordList, pageInfo) {
-    _classCallCheck(this, BettingRecordList);
+var VedioList = exports.VedioList = function VedioList(totalCount, vedioList, pageInfo) {
+    _classCallCheck(this, VedioList);
 
     this.totalCount = totalCount;
-    this.bettingRecordList = bettingRecordList;
-    this.pageInfo = pageInfo;
-};
-
-//上下分审批记录列表
-
-
-var PointAddAndSubtractRecordList = exports.PointAddAndSubtractRecordList = function PointAddAndSubtractRecordList(totalCount, pointAddAndSubtractRecordList, pageInfo) {
-    _classCallCheck(this, PointAddAndSubtractRecordList);
-
-    this.totalCount = totalCount;
-    this.pointAddAndSubtractRecordList = pointAddAndSubtractRecordList;
-    this.pageInfo = pageInfo;
-};
-
-//用户信息列表
-
-
-var UserList = exports.UserList = function UserList(totalCount, userList, pageInfo) {
-    _classCallCheck(this, UserList);
-
-    this.totalCount = totalCount;
-    this.userList = userList;
+    this.vedioList = vedioList;
     this.pageInfo = pageInfo;
 };
 

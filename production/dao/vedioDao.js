@@ -1,5 +1,5 @@
 /**
- * Created by zhubg on 2017/5/14.
+ * Created by zhubg on 2017/9/26.
  */
 
 'use strict';
@@ -9,7 +9,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.bettingRecordDao = bettingRecordDao;
+exports.vedioDao = vedioDao;
 
 var _database = require('../util/database');
 
@@ -19,27 +19,27 @@ var tokill = ['_rev', '_id', '_key'];
 
 
 //userDao
-function bettingRecordDao(module, method, params) {
+function vedioDao(module, method, params) {
     //code
 
     //promise
-    console.log('bettingRecordDao');
+    console.log('vedioDao');
     return dao[method](module, method, params);
 }
 
 //功能Dao--start--
 var dao = {};
 
-//getBettingRecordListByOffsetAndCount
-dao.getBettingRecordListByOffsetAndCount = function (module, method, params) {
+//getLotteryRecordListByOffsetAndCount
+dao.getVedioListByOffsetAndCount = function (module, method, params) {
     //some code
-    console.log('bettingRecordDao-getBettingRecordListByOffsetAndCount');
+    console.log('vedioDao-getVedioListByOffsetAndCount');
     if (params.offset !== undefined && params.count !== undefined) {
         var bindVars = {};
         bindVars.tokill = tokill;
         bindVars.offset = params.offset;
         bindVars.count = params.count;
-        var AQL = ' \n                    LET bettingRecordList = (For br in bettingRecord\n                                        SORT br.periodNum DESC\n                                        LIMIT @offset,@count\n                                      return UNSET(br,@tokill)\n                                      )\n                    return {totalCount:LENGTH(bettingRecord),bettingRecordList:bettingRecordList}\n                  ';
+        var AQL = ' \n                    LET vedioList = (For v in vedio\n                                        SORT v.upload_date DESC\n                                        LIMIT @offset,@count\n                                      return UNSET(v,@tokill)\n                                      )\n                    return {totalCount:LENGTH(vedio),vedioList:vedioList}\n                  ';
         //promise
         return _database.db.query(AQL, bindVars).then(function (cursor) {
             return cursor.all();

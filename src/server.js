@@ -4,39 +4,19 @@
 
 'use strict';
 
-var _express = require('express');
+import express from 'express';
+import cors from 'cors';
+import bodyParser from'body-parser';
+import {graphqlExpress} from 'graphql-server-express';
+import {schema} from'./schema/schema';
+const app = express();
 
-var _express2 = _interopRequireDefault(_express);
-
-var _cors = require('cors');
-
-var _cors2 = _interopRequireDefault(_cors);
-
-var _bodyParser = require('body-parser');
-
-var _bodyParser2 = _interopRequireDefault(_bodyParser);
-
-var _graphqlServerExpress = require('graphql-server-express');
-
-var _schema = require('./schema/schema');
-
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
-
-var _nodeFetch = require('node-fetch');
-
-var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var app = (0, _express2.default)();
-
-app.use('/manager', _express2.default.static(_path2.default.join(__dirname, './manager')));
+import path from 'path';
+app.use('/manager', express.static(path.join(__dirname, './manager')));
 // app.use('/manager',express.static(path.join(__dirname, '../admin')));
 
-var corsOptions = {
-    origin: function origin(_origin, callback) {
+const corsOptions = {
+    origin: function (origin, callback) {
         var originIsWhitelisted = true;
         callback(originIsWhitelisted ? null : 'Bad Request', originIsWhitelisted);
     },
@@ -44,34 +24,53 @@ var corsOptions = {
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
-//test
 
+//test
+import fetch from 'node-fetch';
 
 app.get('/tokentest', function (req, res, next) {
-    (0, _nodeFetch2.default)('http://localhost:4000/graphql', {
+    fetch('http://localhost:4000/graphql', {
         method: 'POST',
-        body: JSON.stringify({
-            "query": 'query {\n                              getToken(id:"1234") {\n                                  code\n                                  type\n                                  content\n                              }\n                            }'
-        }),
-        headers: { 'Content-Type': 'application/json' }
-    }).then(function (res) {
-        return res.json();
-    }).then(function (json) {
+        body: JSON.stringify(
+            {
+                "query": `query {
+                              getToken(id:"1234") {
+                                  code
+                                  type
+                                  content
+                              }
+                            }`
+            }
+        ),
+        headers: {'Content-Type': 'application/json'}
+    })
+        .then(function (res) {
+            return res.json();
+        }).then(function (json) {
         console.log(json);
         res.send(json);
     });
 });
 
 app.get('/vedioList', function (req, res, next) {
-    (0, _nodeFetch2.default)('http://localhost:4000/graphql', {
+    fetch('http://localhost:4000/graphql', {
         method: 'POST',
-        body: JSON.stringify({
-            "query": 'query {\n                              getVedioList(offset: 1,count: 2) {\n                                  code\n                                  type\n                                  content\n                              }\n                            }'
-        }),
-        headers: { 'Content-Type': 'application/json' }
-    }).then(function (res) {
-        return res.json();
-    }).then(function (json) {
+        body: JSON.stringify(
+            {
+                "query": `query {
+                              getVedioList(offset: 1,count: 2) {
+                                  code
+                                  type
+                                  content
+                              }
+                            }`
+            }
+        ),
+        headers: {'Content-Type': 'application/json'}
+    })
+        .then(function (res) {
+            return res.json();
+        }).then(function (json) {
         console.log(json);
         res.send(json);
     });
@@ -114,8 +113,8 @@ app.get('/test1', function (req, res, next) {
     res.send(JSON.stringify(testObj));
 });
 
-app.use('/graphql', (0, _cors2.default)(corsOptions), _bodyParser2.default.json(), (0, _graphqlServerExpress.graphqlExpress)({ schema: _schema.schema }));
+app.use('/graphql', cors(corsOptions), bodyParser.json(), graphqlExpress({schema: schema}));
 
-app.listen(4000, function () {
+app.listen(4000, () => {
     console.log('Running a GraphQL API server at localhost:4000/graphql');
 });

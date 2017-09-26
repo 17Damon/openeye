@@ -9,11 +9,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var host = '120.27.124.108';
+var host = '139.196.80.85';
 // const host = '127.0.0.1';
 var port = '8529';
-var database = 'phonegame';
-var username = 'tester';
+var database = 'openeye';
+var username = 'openeye';
 var password = 'cqmygysdss1987';
 
 var db = exports.db = require('arangojs')({

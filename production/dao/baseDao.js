@@ -9,20 +9,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.baseDao = baseDao;
 
-var _lotteryRecordDao = require('./lotteryRecordDao');
-
-var _bettingRecordDao = require('./bettingRecordDao');
-
-var _userDao = require('./userDao');
-
-var _pointAddAndSubtractRecordDao = require('./pointAddAndSubtractRecordDao');
+var _vedioDao = require('./vedioDao');
 
 //allDao注册
 var dao = {};
-dao.lotteryRecordDao = _lotteryRecordDao.lotteryRecordDao;
-dao.bettingRecordDao = _bettingRecordDao.bettingRecordDao;
-dao.userDao = _userDao.userDao;
-dao.pointAddAndSubtractRecordDao = _pointAddAndSubtractRecordDao.pointAddAndSubtractRecordDao;
+dao.vedioDao = _vedioDao.vedioDao;
 
 //baseDao
 function baseDao(module, method, params) {

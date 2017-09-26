@@ -1,5 +1,5 @@
 /**
- * Created by zhubg on 2017/5/14.
+ * Created by zhubg on 2017/9/26.
  */
 
 'use strict';
@@ -7,31 +7,31 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getUserList = getUserList;
+exports.getVedioList = getVedioList;
 
 var _objects = require('../../objects');
 
 var _baseDao = require('../../../dao/baseDao');
 
-async function getUserList() {
+async function getVedioList() {
     try {
         var params = {};
         params.offset = arguments[1].offset;
         params.count = arguments[1].count;
         //访问数据库Dao
-        var obj = await (0, _baseDao.baseDao)('userDao', 'getUserListByOffsetAndCount', params);
+        var obj = await (0, _baseDao.baseDao)('vedioDao', 'getVedioListByOffsetAndCount', params);
         var totalCount = obj[0].totalCount;
-        var userList = obj[0].userList;
+        var vedioList = obj[0].vedioList;
         var hasNextPage = arguments[1].offset + arguments[1].count < obj[0].totalCount ? true : false;
         var endCursor = hasNextPage ? arguments[1].offset + arguments[1].count : obj[0].totalCount;
         var pageInfo = new _objects.PageInfo(endCursor, hasNextPage);
-        var UserListTemp = new _objects.UserList(totalCount, userList, pageInfo);
-        var type = "UserList";
-        var code = "600003";
-        var content = JSON.stringify(UserListTemp);
+        var vedioListTemp = new _objects.VedioList(totalCount, vedioList, pageInfo);
+        var type = "VedioList";
+        var code = "600001";
+        var content = JSON.stringify(vedioListTemp);
         return new _objects.Message(type, code, content);
     } catch (err) {
         console.log(err);
-        return new _objects.Message("error", "400003", err);
+        return new _objects.Message("error", "400001", err);
     }
 }
