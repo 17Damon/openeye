@@ -51,29 +51,41 @@ app.get('/tokentest', function (req, res, next) {
         res.send(json);
     });
 });
-
+//vedioList?offset=1&count=2&token="648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa"
 app.get('/vedioList', function (req, res, next) {
-    fetch('http://localhost:4000/graphql', {
-        method: 'POST',
-        body: JSON.stringify(
-            {
-                "query": `query {
-                              getVedioList(offset: 1,count: 2,token: "648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa") {
+    console.log(req.query.offset);
+    console.log(req.query.count);
+    var offset = req.query.offset;
+    var count = req.query.count;
+    var token = req.query.token;
+    console.log(token==="648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa");
+    console.log(typeof token);
+    if(token==="648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa"){
+        fetch('http://localhost:4000/graphql', {
+            method: 'POST',
+            body: JSON.stringify(
+                {
+                    "query": `query {
+                              getVedioList(offset: ${offset},count: ${count},token:"${token}" ) {
                                   code
                                   type
                                   content
                               }
                             }`
-            }
-        ),
-        headers: {'Content-Type': 'application/json'}
-    })
-        .then(function (res) {
-            return res.json();
-        }).then(function (json) {
-        console.log(json);
-        res.send(json);
-    });
+                }
+            ),
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(function (res) {
+                return res.json();
+            }).then(function (json) {
+            console.log(json);
+            res.send(json);
+        });
+    }else {
+        res.send("your token is illegal");
+    }
+
 });
 
 app.get('/test1', function (req, res, next) {
