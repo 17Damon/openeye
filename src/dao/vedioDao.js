@@ -34,6 +34,7 @@ dao.getVedioListByOffsetAndCount = function (module, method, params) {
         var AQL = ` 
                     LET vedioList = (For v in vedio
                                         SORT v.upload_date DESC
+                                        SORT v.power_weights DESC
                                         LIMIT @offset,@count
                                       return UNSET(v,@tokill)
                                       )

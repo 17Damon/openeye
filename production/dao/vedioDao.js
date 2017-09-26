@@ -39,7 +39,7 @@ dao.getVedioListByOffsetAndCount = function (module, method, params) {
         bindVars.tokill = tokill;
         bindVars.offset = params.offset;
         bindVars.count = params.count;
-        var AQL = ' \n                    LET vedioList = (For v in vedio\n                                        SORT v.upload_date DESC\n                                        LIMIT @offset,@count\n                                      return UNSET(v,@tokill)\n                                      )\n                    return {totalCount:LENGTH(vedio),vedioList:vedioList}\n                  ';
+        var AQL = ' \n                    LET vedioList = (For v in vedio\n                                        SORT v.upload_date DESC\n                                        SORT v.power_weights DESC\n                                        LIMIT @offset,@count\n                                      return UNSET(v,@tokill)\n                                      )\n                    return {totalCount:LENGTH(vedio),vedioList:vedioList}\n                  ';
         //promise
         return _database.db.query(AQL, bindVars).then(function (cursor) {
             return cursor.all();
