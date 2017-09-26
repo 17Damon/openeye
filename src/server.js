@@ -58,7 +58,7 @@ app.get('/vedioList', function (req, res, next) {
         body: JSON.stringify(
             {
                 "query": `query {
-                              getVedioList(offset: 1,count: 2) {
+                              getVedioList(offset: 1,count: 2,token: "648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa") {
                                   code
                                   type
                                   content

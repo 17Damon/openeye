@@ -23,7 +23,7 @@ type Message {
 
 type Query {
     getToken(id:ID!): Message!
-    getVedioList(offset: Int!,count: Int!): Message!
+    getVedioList(offset: Int!,count: Int!, token: String!): Message!
 }
 
 schema {

@@ -66,7 +66,7 @@ app.get('/vedioList', function (req, res, next) {
     (0, _nodeFetch2.default)('http://localhost:4000/graphql', {
         method: 'POST',
         body: JSON.stringify({
-            "query": 'query {\n                              getVedioList(offset: 1,count: 2) {\n                                  code\n                                  type\n                                  content\n                              }\n                            }'
+            "query": 'query {\n                              getVedioList(offset: 1,count: 2,token: "648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa") {\n                                  code\n                                  type\n                                  content\n                              }\n                            }'
         }),
         headers: { 'Content-Type': 'application/json' }
     }).then(function (res) {
