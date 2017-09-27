@@ -23,7 +23,7 @@ async function getVedioList() {
             var obj = await (0, _baseDao.baseDao)('vedioDao', 'getVedioListByOffsetAndCount', params);
             var totalCount = obj[0].totalCount;
             var vedioList = obj[0].vedioList;
-            var hasNextPage = arguments[1].offset + arguments[1].count < obj[0].totalCount ? true : false;
+            var hasNextPage = arguments[1].offset + arguments[1].count <= obj[0].totalCount ? true : false;
             var endCursor = hasNextPage ? arguments[1].offset + arguments[1].count : obj[0].totalCount;
             var pageInfo = new _objects.PageInfo(endCursor, hasNextPage);
             var vedioListTemp = new _objects.VedioList(totalCount, vedioList, pageInfo);
