@@ -21,16 +21,20 @@ async function getVedioList() {
             params.count = arguments[1].count;
             //访问数据库Dao
             var obj = await (0, _baseDao.baseDao)('vedioDao', 'getVedioListByOffsetAndCount', params);
-            var totalCount = obj[0].totalCount;
-            var vedioList = obj[0].vedioList;
-            var hasNextPage = arguments[1].offset + arguments[1].count <= obj[0].totalCount ? true : false;
-            var endCursor = hasNextPage ? arguments[1].offset + arguments[1].count : obj[0].totalCount;
-            var pageInfo = new _objects.PageInfo(endCursor, hasNextPage);
-            var vedioListTemp = new _objects.VedioList(totalCount, vedioList, pageInfo);
-            var type = "VedioList";
-            var code = "600001";
-            var content = JSON.stringify(vedioListTemp);
-            return new _objects.Message(type, code, content);
+            if (arguments[1].offset > obj[0].totalCount) {
+                return new _objects.Message("warn", "300001", "offset out of totalCount range!");
+            } else {
+                var totalCount = obj[0].totalCount;
+                var vedioList = obj[0].vedioList;
+                var hasNextPage = arguments[1].offset <= obj[0].totalCount ? true : false;
+                var endCursor = hasNextPage || arguments[1].offset + arguments[1].count < obj[0].totalCount ? arguments[1].offset + arguments[1].count : obj[0].totalCount;
+                var pageInfo = new _objects.PageInfo(endCursor, hasNextPage);
+                var vedioListTemp = new _objects.VedioList(totalCount, vedioList, pageInfo);
+                var type = "VedioList";
+                var code = "600001";
+                var content = JSON.stringify(vedioListTemp);
+                return new _objects.Message(type, code, content);
+            }
         } else {
             return new _objects.Message("error", "748", "your token is illegal,fuck you mum!");
         }
