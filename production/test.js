@@ -1,5 +1,7 @@
 "use strict";
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 /**
  * Created by zhubg on 2017/5/13.
  */
@@ -23,7 +25,21 @@
 // }
 //
 // printPostsToConsole();
+var Message = function Message(type, code, content) {
+    _classCallCheck(this, Message);
 
-console.log(JSON.stringify({
-    "query": "query {\n                              getVedioList(offset: 1,count: 2,token: \"648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa\") {\n                                  code\n                                  type\n                                  content\n                              }\n                            }"
-}));
+    this.type = type;
+    this.code = code;
+    this.content = content;
+};
+
+async function test() {
+    console.log(new Message("error", "748", "your token is illegal,fuck you mum!"));
+}
+
+var offset = 0;
+var count = 3;
+var token = "648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa";
+test.call(null, null, { offset: offset, count: count, token: token });
+
+console.log(new Message("error", "748", "your token is illegal,fuck you mum!"));

@@ -30,6 +30,8 @@ var _nodeFetch = require('node-fetch');
 
 var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 
+var _getVedioList = require('./schema/resolvers/vedio/getVedioList');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
@@ -73,7 +75,8 @@ var corsOptions = {
 //     });
 // });
 
-//vedioList?offset=0&count=2&token="648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa"
+//vedioList?offset=0&count=2&token=648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa
+
 app.get('/vedioList', function (req, res, next) {
     console.log(req.query.offset);
     console.log(req.query.count);
@@ -83,18 +86,35 @@ app.get('/vedioList', function (req, res, next) {
     console.log(token === "648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa");
     console.log(typeof token === 'undefined' ? 'undefined' : _typeof(token));
     if (token === "648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa") {
-        (0, _nodeFetch2.default)('http://localhost:4000/graphql', {
-            method: 'POST',
-            body: JSON.stringify({
-                "query": 'query {\n                              getVedioList(offset: ' + offset + ',count: ' + count + ',token:"' + token + '" ) {\n                                  code\n                                  type\n                                  content\n                              }\n                            }'
-            }),
-            headers: { 'Content-Type': 'application/json' }
-        }).then(function (res) {
-            return res.json();
-        }).then(function (json) {
-            console.log(json);
-            res.send(json);
+        //直接调用resolves
+        _getVedioList.getVedioList.call(null, null, { offset: parseInt(offset, 10), count: parseInt(count, 10), token: token }).then(function (data) {
+            res.send({ data: { getVedioList: data } });
+        }).catch(function (err) {
+            console.log(err);
+            res.send("getVedioList ERR");
         });
+        //蠢请求
+        // fetch('http://localhost:4000/graphql', {
+        //     method: 'POST',
+        //     body: JSON.stringify(
+        //         {
+        //             "query": `query {
+        //                       getVedioList(offset: ${offset},count: ${count},token:"${token}" ) {
+        //                           code
+        //                           type
+        //                           content
+        //                       }
+        //                     }`
+        //         }
+        //     ),
+        //     headers: {'Content-Type': 'application/json'}
+        // })
+        //     .then(function (res) {
+        //         return res.json();
+        //     }).then(function (json) {
+        //     console.log(json);
+        //     res.send(json);
+        // });
     } else {
         res.send("your token is illegal");
     }

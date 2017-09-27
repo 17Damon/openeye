@@ -21,14 +21,24 @@
 // }
 //
 // printPostsToConsole();
+class Message {
+    constructor(type, code, content) {
+        this.type = type;
+        this.code = code;
+        this.content = content;
+    }
+}
 
-console.log(JSON.stringify(
-    {
-        "query": `query {
-                              getVedioList(offset: 1,count: 2,token: "648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa") {
-                                  code
-                                  type
-                                  content
-                              }
-                            }`
-    }))
+
+async function test() {
+    console.log(new Message("error", "748", "your token is illegal,fuck you mum!"));
+}
+
+
+var offset = 0;
+var count = 3;
+var token = "648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa";
+test.call(null, null, {offset: offset, count: count, token: token});
+
+
+console.log(new Message("error", "748", "your token is illegal,fuck you mum!"));
