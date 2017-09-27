@@ -26,7 +26,7 @@ async function getVedioList() {
             } else {
                 var totalCount = obj[0].totalCount;
                 var vedioList = obj[0].vedioList;
-                var endCursor = (arguments[1].offset + arguments[1].count < obj[0].totalCount ? arguments[1].offset + arguments[1].count : obj[0].totalCount) - 1;
+                var endCursor = arguments[1].offset + arguments[1].count < obj[0].totalCount ? arguments[1].offset + arguments[1].count : obj[0].totalCount;
                 var hasNextPage = endCursor < obj[0].totalCount ? true : false;
                 var pageInfo = new _objects.PageInfo(endCursor, hasNextPage);
                 var vedioListTemp = new _objects.VedioList(totalCount, vedioList, pageInfo);
