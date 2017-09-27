@@ -21,7 +21,7 @@ async function getVedioList() {
             params.count = arguments[1].count;
             //访问数据库Dao
             var obj = await (0, _baseDao.baseDao)('vedioDao', 'getVedioListByOffsetAndCount', params);
-            if (arguments[1].offset > obj[0].totalCount) {
+            if (arguments[1].offset >= obj[0].totalCount) {
                 return new _objects.Message("warn", "300001", "offset out of totalCount range!");
             } else {
                 var totalCount = obj[0].totalCount;
