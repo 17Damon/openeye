@@ -21,8 +21,8 @@ export async function getVedioList() {
             }else {
                 let totalCount = obj[0].totalCount;
                 let vedioList = obj[0].vedioList;
-                let hasNextPage = arguments[1].offset <= obj[0].totalCount ? true : false;
-                let endCursor = hasNextPage||((arguments[1].offset + arguments[1].count)<obj[0].totalCount)?arguments[1].offset + arguments[1].count:obj[0].totalCount;
+                let endCursor = (arguments[1].offset + arguments[1].count)<obj[0].totalCount?arguments[1].offset + arguments[1].count:obj[0].totalCount;
+                let hasNextPage = endCursor < obj[0].totalCount ? true : false;
                 let pageInfo = new PageInfo(endCursor, hasNextPage);
                 let vedioListTemp = new VedioList(totalCount, vedioList, pageInfo);
                 let type = "VedioList";
