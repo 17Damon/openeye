@@ -17,12 +17,25 @@ db._query(`
             INSERT {
                        src: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
                        picScr: '',
-                       title: '奇怪老夫妻的秘密：爱情雷区最新，权重150',
+                       title: 'vi = true奇怪老夫妻的秘密：爱情雷区最新，权重150',
                        content: '五十年的婚姻，五十年的爱与感动，还封存五十言的谎言。沃特和妻子走进了藏有地雷和浪漫约会地，却听到彼此深藏已久的秘密......这只短片曾获得2016年圣地亚哥国际电影节观众选择奖，不得不说这世界观众口味很特别啊~',
                        power_weights:150,
+                       vi:true,
                        img:'http://pic.qiantucdn.com/58pic/15/57/27/53R58PICJIr_1024.png',
                        upload_date:DATE_NOW()
                    }
             IN vedio
             return NEW
         `).toArray();
+
+--example
+
+db._query(`
+                    LET vedioList = (For v in vedio
+                                        SORT v.power_weights DESC,v.upload_date DESC
+                                        LIMIT 1,10
+                                      return v)
+                    return {totalCount:LENGTH(vedio),vedioList:vedioList}
+`).toArray();
+
+SORT v.upload_date DESC,v.power_weights DESC
