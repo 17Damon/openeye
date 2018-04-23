@@ -12,7 +12,7 @@ function getToken() {
     var message = new _objects.Message();
     message.type = "info";
     message.code = "00001";
-    message.content = "this is a message test";
+    message.content = "this is a message test xiaoxiao";
     console.log("token_test");
     console.log(token);
     // return new Token(token);

@@ -51,29 +51,20 @@ var corsOptions = {
 //test
 
 
-// app.get('/tokentest', function (req, res, next) {
-//     fetch('http://localhost:4000/graphql', {
-//         method: 'POST',
-//         body: JSON.stringify(
-//             {
-//                 "query": `query {
-//                               getToken(id:"1234") {
-//                                   code
-//                                   type
-//                                   content
-//                               }
-//                             }`
-//             }
-//         ),
-//         headers: {'Content-Type': 'application/json'}
-//     })
-//         .then(function (res) {
-//             return res.json();
-//         }).then(function (json) {
-//         console.log(json);
-//         res.send(json);
-//     });
-// });
+app.get('/tokentest1', function (req, res, next) {
+    (0, _nodeFetch2.default)('http://localhost:4000/graphql', {
+        method: 'POST',
+        body: JSON.stringify({
+            "query": 'query {\n                              getToken(id:"1234") {\n                                  code\n                                  type\n                                  content\n                              }\n                            }'
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    }).then(function (res) {
+        return res.json();
+    }).then(function (json) {
+        console.log(json);
+        res.send(json);
+    });
+});
 
 //vedioList?offset=0&count=2&token=648d4007ca17944139946d96dcd016056148a19c89007b88db3a83a396aa
 

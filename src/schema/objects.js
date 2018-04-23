@@ -13,9 +13,9 @@ export class Token {
 
 //Message
 export class Message {
-    constructor(type,code,content) {
-        this.type = type;
+    constructor(code,type,content) {
         this.code = code;
+        this.type = type;
         this.content = content;
     }
 }
